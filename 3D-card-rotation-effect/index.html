@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Welcome to 3d world</title>
+</head>
+<body>
+    <h1>HELLO! THAT'S AWESOME!</h1>
+    <!-- 卡片部分开始 -->
+    <div class="card">
+        <!-- 卡片渐变层 -->
+        <div class="card-shine"></div>
+        <!-- 卡片阴影层 -->
+        <div class="card-shadow"></div>
+        <!-- 卡片图片层 -->
+        <div class="card-layer"></div>
+    </div>
+
+    <!-- JS部分开始-设置3D旋转效果 -->
+    <script>
+        // 获取元素
+        // 1. 鼠标作用的范围
+        const movelimit = document.querySelector('.card')
+        // 2. 获取card元素
+        const card = document.querySelector('.card')
+        // 3. 获取渐变层的元素
+        const shine = document.querySelector('.card-shine')
+
+        // 4. 想要图片跟随鼠标旋转，首先需要鼠标坐标
+        movelimit.addEventListener('mousemove',(e) => {
+            window.requestAnimationFrame(function() {
+                // requestAnimationFrame()指定的函数动画
+                movecard(e.clientX,e.clientY);
+                // 获取鼠标相对于浏览器的动态位置
+            })
+        }) 
+        // 设定速率
+        const speed = 5
+        // 正式开始控制鼠标的代码
+        function movecard(x, y){
+            let box = card.getBoundingClientRect()
+            // getBoundingClientRect()用于获取页面元素的左、上、下、右分别相对于浏览器的位置
+            // 计算坐标
+            // 公式：rotateY = (鼠标x坐标 - 元素左上角x坐标 - 元素宽度的一半)deg
+            // 计算x的坐标
+            let calcX = (y - box.y - (box.height / 2)) / speed
+            // 计算y的坐标，网页中的y坐标跟我们显示是相反的，后面*-1
+            let calcY = (x - box.x - (box.width / 2)) / speed * -1
+            // 随便写一个z坐标
+            let calcZ = (box.height * box.y) / 60
+            // 根据获取的坐标改变元素的旋转
+            // 还要设定一个速率，不然太快了
+            card.style.transform = 'rotateX' + '(' + calcX + 'deg' + ')' + 'rotateY' + '(' + calcY + 'deg' + ')'
+            // 再进一步添加一点样式，比如来点渐变
+            // linear-gradient(70deg, #37544024, rgb(46 119 42 / 22%))
+            shine.style.background = 'linear-gradient' + '(' + calcZ + 'deg' + ',' + '#fff' + ',' + 'rgba(46,119,42, 0 )' + ')'
+        }
+        // 鼠标离开后，要让卡片的位置复原
+        movelimit.addEventListener('mouseleave',(e) => {
+            window.requestAnimationFrame(function() {
+                card.style.transform = 'rotateX' + '(' + 0 + 'deg' + ')' + 'rotateY' + '(' + 0 + 'deg' + ')'
+                shine.style.background = 'transparent'
+            })
+        }) 
+    </script>
+    <!-- JS部分结束 -->
+    <!-- 卡片结束 -->
+</body>
+</html>
