@@ -1,0 +1,146 @@
+/* 初始化 */
+* {
+  box-sizing: border-box;
+  /* 所有的都变成怪异盒模型 */
+}
+
+body {
+  background-color: #333;
+  color: #222;
+  overflow-x: hidden;
+  /* x轴超出部分隐藏 */
+  margin: 0;
+}
+
+/* 设置盒子样式 */
+.container {
+  background-color: #fafafa;
+  transform-origin: top left;
+  /* 旋转中心:以左上角为基点 */
+  transition: transform 0.5s linear;
+  /* 动画过渡，transform允许进行旋转、位移等效果*/
+  width: 100vw;
+  min-height: 100vh;
+  padding: 50px;
+}
+
+/* 通过js操作盒子的样式 */
+.container.show-nav {
+  transform: rotate(-20deg);
+}
+
+/* 固定圆的位置 */
+.circle-container {
+  position: fixed;
+  top: -100px;
+  left: -100px;
+}
+
+/* 设置圆的样式 */
+.circle {
+  background-color: #ff7979;
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  position: relative;
+  transition: transform 0.5s linear;
+}
+
+/* 设置js对圆的样式 */
+.container.show-nav .circle {
+  transform: rotate(-70deg);
+}
+
+/* 设置按钮开关的公共样式 */
+.circle button {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 100px;
+  background: transparent;
+  border: 0;
+}
+
+/* 去掉开关的外框线 */
+.circle button:focus {
+  outline: none;
+}
+
+/* 对按钮开的单独样式 */
+.circle button#open {
+  left: 60%;
+}
+
+/* 对按钮关的单独样式 */
+.circle button#close {
+  top: 60%;
+  transform: rotate(90deg);
+  transform-origin: top left;
+}
+
+/* '+' 这叫相邻选择器，选择跟容器相邻的下一个元素：nav */
+.container.show-nav + nav li {
+  transform: translateX(0);
+  transition-delay: 0.3s;
+}
+
+nav {
+  position: fixed;
+  bottom: 40px;
+  left: 0;
+  z-index: 100;
+}
+
+nav ul {
+  list-style: none;
+  padding-left: 30px;
+}
+
+nav ul li {
+  /* 所有文字大写 */
+  text-transform: uppercase;
+  color: #fff;
+  margin: 40px 0;
+  /* 刚开始菜单是消失的，点击按钮才旋转出来 */
+  transform: translateX(-100%);
+}
+
+/* 相邻选择器来隐藏第二个和第三个li的位置 */
+nav ul li + li {
+  margin-left: 15px;
+  transform: translateX(-200%);
+}
+
+/* 设置a链接的样式 */
+nav a {
+  color: #fafafa;
+  text-decoration: none;
+  transition: all 0.5s;
+}
+
+nav a:hover {
+  color: #ff7979;
+  font-weight: bold;
+}
+
+/* 设置内容样式 */
+.content img {
+  max-width: 100%;
+  margin: 50px auto;
+}
+
+.contet h1 {
+  margin: 0;
+}
+
+.content small {
+  color: #555;
+  font-style: italic;
+  /* 斜体italic */
+}
+
+.content p {
+  color: #333;
+  line-height: 1.5;
+}
