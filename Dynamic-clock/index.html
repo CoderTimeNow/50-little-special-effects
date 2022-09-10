@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Dynamic-clock</title>
+		<!-- 网页图标 -->
+		<link rel="shortcut icon" href="img/icons8-relógio-48.png">
+		<!-- 引入样式文件 -->
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<div class="container">
+			<div class="box">
+				<div class="clock">
+					<!-- 小时线 -->
+					<div class="hour">
+						<div class="hr" id="hr"></div>
+					</div>
+					<!-- 小时线 -->
+					<!-- 分钟线 -->
+					<div class="min">
+						<div class="mn" id="mn"></div>
+					</div>
+					<!-- 分钟线 -->
+					<!-- 秒针线 -->
+					<div class="sec">
+						<div class="sc" id="sc"></div>
+					</div>
+					<!-- 秒针线 -->
+				</div>
+			</div>
+		</div>
+
+		<!-- 设置转动效果 -->
+		<script>
+			const deg = 6;
+			const hr = document.querySelector('#hr');
+			const mn = document.querySelector('#mn');
+			const sc = document.querySelector('#sc');
+
+			setInterval(getTime,1000);
+			// 封装成函数，先调用一次：防止刷新出现空白
+			function getTime() {
+				let day = new Date();
+				let mm = day.getMinutes() * deg;
+				let hh = day.getHours() * 30 + (mm / 12);
+				// 小时要特殊一点，因为在这一小时里面，它也是要转动的
+				// console.log(hh);
+				let ss = day.getSeconds() * deg;
+
+				hr.style.transform = `rotateZ(${hr}deg)`;
+				mn.style.transform = `rotateZ(${mm}deg)`;
+				sc.style.transform = `rotateZ(${ss}deg)`;
+			};
+			getTime();
+		</script>
+	</body>
+</html>

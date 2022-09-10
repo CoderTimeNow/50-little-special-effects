@@ -1,0 +1,184 @@
+/* 初始化 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* 给body加一个元素做背景 */
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    45deg,
+    #f68657,
+    #f68656 50%,
+    #383a3f 50%,
+    #383a36
+  );
+}
+
+/* 可动的背景层 */
+body::after {
+  content: "";
+  position: absolute;
+  top: -20px;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(
+    160deg,
+    #754f44,
+    #754f46 50%,
+    transparent 50%,
+    transparent
+  );
+  /* 动画设置 名称，持续时间，动画效果，无限 */
+  animation: animate 5s ease-in-out infinite;
+}
+
+@keyframes animate {
+  0%,
+  100% {
+    transform: translateY(10px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.container {
+  position: relative;
+}
+
+/* 给钟设置影子 */
+.container::before {
+  content: "";
+  position: absolute;
+  bottom: -120px;
+  width: 100%;
+  height: 60px;
+  background: radial-gradient(rgba(0, 0, 0, 0.2), transparent, transparent);
+  border-radius: 50%;
+}
+
+.box {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  /* 背景模糊效果 */
+  backdrop-filter: blur(25px);
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  /* 给钟设置跟蓝色背景一样的动画 */
+  animation: animate 5s ease-in-out infinite;
+  animation-delay: -2.5s;
+  z-index: 2;
+}
+
+/* 设置表盘的样式、阴影 */
+.clock {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  background: radial-gradient(transparent, rgba(255, 255, 255, 0.2)),
+    url(img/clock.png);
+  background-size: cover;
+  border-radius: 50%;
+  backdrop-filter: blur(25px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-bottom: none;
+  border-right: none;
+  box-shadow: -10px -10px 20px rgba(225, 225, 225, 0.1),
+    10px 10px 20px rgba(0, 0, 0, 0.1), 0 40px 50px rgba(0, 0, 0, 0.2);
+}
+
+/* 给表盘加中间的圆点 */
+.clock::before {
+  content: "";
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background-color: #fff;
+  border-radius: 50%;
+  z-index: 18;
+}
+
+/* 设置时针、分针、秒针的位置和大小 */
+.hour,
+.min,
+.sec {
+  position: absolute;
+}
+
+.hour,
+.hr {
+  width: 160px;
+  height: 160px;
+}
+
+.min,
+.mn {
+  width: 190px;
+  height: 190px;
+}
+
+.sec,
+.sc {
+  width: 230px;
+  height: 230px;
+}
+
+.hr,
+.mn,
+.sc {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  border-radius: 50%;
+}
+
+.hr::before {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 80px;
+  background-color: #ffc107;
+  border-radius: 6px;
+  z-index: 8;
+}
+
+.mn::before {
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 90px;
+  background-color: #ce6d39;
+  border-radius: 6px;
+  z-index: 10;
+}
+
+.sc::before {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: 150px;
+  background-color: #000;
+  border-radius: 6px;
+  z-index: 11;
+}
